@@ -7,12 +7,14 @@ CommonResponse(router);
 
 /* ------------ IMPORTACION DE RUTAS ---------------------------- */
 
-const primeItemsRoute = require('./primeItems');
-const primePartsRoute = require('./primeParts');
-const inventoryRoute = require('./inventory')
+const partsTypes = require('./partsTypes');
+const parts = require('./parts');
+const partsInv = require('./partsInv');
+// const items = require('./items');
 
-router.use('/items', primeItemsRoute);
-router.use('/parts', primePartsRoute);
-router.use('/inventory', inventoryRoute);
+router.use('/partsTypes', partsTypes);
+router.use('/parts', parts);
+router.use('/partsInv', partsInv);
+// router.use('/items', items);
 
 module.exports = router;

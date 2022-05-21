@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const PartsSub = mongoose.Schema(
   {
-    partType: {
-      type: String,
-      required: true,
+    part: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'parts'
     },
     ducats: {
       type: Number,

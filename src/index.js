@@ -10,7 +10,7 @@ const app = express();
 //Conectar a mongodb
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@warframeinvcluster.romg3.mongodb.net/test`,
+  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.romg3.mongodb.net/test`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
