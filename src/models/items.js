@@ -6,11 +6,7 @@ const PartsSub = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'parts'
     },
-    ducats: {
-      type: Number,
-      required: true,
-    },
-    cuantity: {
+    quantity: {
       type: Number,
       required: true,
       default: 1,
@@ -21,9 +17,8 @@ const PartsSub = mongoose.Schema(
 
 const Item = mongoose.Schema({
   type: {
-    type: String,
-    required: true,
-    trim: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'itemsTypes'
   },
   name: {
     type: String,
@@ -33,4 +28,4 @@ const Item = mongoose.Schema({
   parts: [PartsSub],
 });
 
-module.exports = mongoose.model('item', Item);
+module.exports = mongoose.model('items', Item);

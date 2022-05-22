@@ -27,11 +27,26 @@ exports.getParts = async (req, res) => {
   }
 };
 
+exports.deletePartQuantity = async (req, res) => {
+  try {
+    const partExistance = await PartsInv.findOne({ _id: req.params.id });
+    if (!partExistance) return res.badRequest('part do not exist in db');
+    const part = await PartsInv.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { quantity: (parseFloat(req.query.quantity) * -1) } },
+      { new: true });
+    if (part.quantity <= 0) await PartsInv.deleteMany({ _id: req.params.id });
+    res.success('OK', part); 
+  } catch (error) {
+    res.error(error);
+  }
+};
+
 exports.deletePart = async (req, res) => {
   try {
-    const partExistance = await PartsInv.findOne({ _id: req.body.id });
+    const partExistance = await PartsInv.findOne({ _id: req.params.id });
     if (!partExistance) return res.badRequest('part do not exist in db');
-    await PartsInv.deleteMany({ _id: req.body.id });
+    await PartsInv.deleteMany({ _id: req.params.id });
     res.success('OK');
   } catch (error) {
     res.error(error);

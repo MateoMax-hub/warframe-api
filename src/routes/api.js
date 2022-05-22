@@ -5,16 +5,29 @@ const CommonResponse = require('../utils/response');
 
 CommonResponse(router);
 
-/* ------------ IMPORTACION DE RUTAS ---------------------------- */
-
+// types
 const partsTypes = require('./partsTypes');
-const parts = require('./parts');
-const partsInv = require('./partsInv');
-// const items = require('./items');
+const itemsTypes = require('./itemsTypes');
 
+// parts/items
+const parts = require('./parts');
+const items = require('./items');
+
+// inv
+const partsInv = require('./partsInv');
+const itemsInv = require('./itemsInv');
+
+
+// types
 router.use('/partsTypes', partsTypes);
+router.use('/itemsTypes', itemsTypes);
+
+// parts/items
 router.use('/parts', parts);
+router.use('/items', items);
+
+// inv
 router.use('/partsInv', partsInv);
-// router.use('/items', items);
+router.use('/itemsInv', itemsInv);
 
 module.exports = router;

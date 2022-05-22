@@ -23,9 +23,9 @@ exports.getParts = async (req, res) => {
 
 exports.deletePart = async (req, res) => {
     try {
-      const partExistance = await Parts.findOne({ _id: req.body.id });
+      const partExistance = await Parts.findOne({ _id: req.params.id });
       if (!partExistance) return res.badRequest('part do not exist in db');
-      await Parts.deleteMany({ _id: req.body.id });
+      await Parts.deleteMany({ _id: req.params.id });
       res.success('OK');
     } catch (error) {
       res.error(error);

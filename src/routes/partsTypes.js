@@ -6,6 +6,6 @@ const partsTypesController = require('../controllers/partsTypesController');
 
 router.post('/', partsTypesController.addPartType);
 router.get('/', partsTypesController.getPartsTypes);
-router.delete('/', partsTypesController.deletePartType);
+router.delete('/:id', partsTypesController.deletePartType);
 
 module.exports = router;
