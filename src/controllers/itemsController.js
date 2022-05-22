@@ -1,6 +1,6 @@
-const Items = require('../models/item');
+const Items = require('../models/items');
 
-exports.addPartType = async (req, res) => {
+exports.addItem = async (req, res) => {
   try {
     const partTypeExistance = await PartsTypes.findOne({ partType: req.body.partType });
     if (partTypeExistance) return res.badRequest('part type is already uploaded');
