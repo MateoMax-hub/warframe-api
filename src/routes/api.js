@@ -17,6 +17,9 @@ const items = require('./items');
 const partsInv = require('./partsInv');
 const itemsInv = require('./itemsInv');
 
+// img
+const images = require('./images');
+
 
 // types
 router.use('/partsTypes', partsTypes);
@@ -29,5 +32,8 @@ router.use('/items', items);
 // inv
 router.use('/partsInv', partsInv);
 router.use('/itemsInv', itemsInv);
+
+// img
+router.use('/images', images)
 
 module.exports = router;
