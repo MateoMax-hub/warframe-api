@@ -2,8 +2,6 @@ const Images = require('../models/images');
 
 exports.addImage = async (req, res) => {
   try {
-    const imageExistance = await Images.findOne({ html: req.body.html });
-    if (imageExistance) return res.badRequest('image is already uploaded');
     const imageNameExistance = await Images.findOne({ name: req.body.name });
     if (imageNameExistance) return res.badRequest('image name is already in use');
     const image = new Images(req.body);
