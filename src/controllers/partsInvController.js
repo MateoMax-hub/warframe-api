@@ -1,5 +1,6 @@
 const PartsInv = require('../models/partsInv');
 const Items = require('../models/items');
+const ItemsInv = require('../models/itemsInv');
 
 exports.addPart = async (req, res) => {
   try {
@@ -30,7 +31,7 @@ exports.getParts = async (req, res) => {
 
 exports.getTrash = async (req, res) => {
   try {
-    const parts = await PartsInv.find().populate({
+    const partsInv = await PartsInv.find().populate({
       path: 'part',
       populate: { path: 'type' }
     });
@@ -38,14 +39,43 @@ exports.getTrash = async (req, res) => {
       path: 'type parts.part',
       populate: { path: 'type' }
     });
+    const itemsInv = await ItemsInv.find().populate({
+      path: 'item',
+      populate: {
+        path: 'type parts.part',
+        populate: { path: 'type' }
+      }
+    });
+    
     const partsToSell = [];
-    for (const part of parts) {
+    const itemsNotInInv = [];
+    for (const itemInv of itemsInv) {
       for (const item of items) {
-        for (const itemPart of item.parts) {
-          if (part.part._id.equals(itemPart.part._id)) partsToSell.push(part)
+        if (!itemInv.item._id.equals(item._id)) {
+          itemsNotInInv.push(item)
+        } else {
+          for (const part of partsInv) {
+            for (const partInInv of item.parts) {
+              if (partInInv.part._id.equals(part.part._id)) partsToSell.push(part);
+            }
+          }
         }
       }
     }
+
+    for (const part of partsInv) {
+      for (const itemNotInInv of itemsNotInInv) {
+        for (const partNotInInv of itemNotInInv.parts) {
+          if (partNotInInv.quantity < part.quantity 
+            && partNotInInv.part._id.equals(part.part._id
+          )) {
+            part.quantity = part.quantity - partNotInInv.quantity
+            partsToSell.push(part);
+          }
+        }
+      }
+    }
+
     res.success('OK', partsToSell);
   } catch (error) {
     res.error(error);
