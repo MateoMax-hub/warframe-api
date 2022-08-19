@@ -76,7 +76,20 @@ exports.getTrash = async (req, res) => {
       }
     }
 
-    res.success('OK', partsToSell);
+    const defPartsToSell = []
+
+    for (const part of partsToSell) {
+      const partToPush = { ...part._doc };
+      console.log('====================================');
+      console.log(partToPush);
+      console.log('====================================');
+      part.quantity = 1
+      for (let i = 0; i < partToPush.quantity; i++) {
+        defPartsToSell.push(part)
+      }
+    }
+
+    res.success('OK', defPartsToSell);
   } catch (error) {
     res.error(error);
   }
