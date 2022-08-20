@@ -8,7 +8,7 @@ const app = express();
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.c3c55nt.mongodb.net/test`,
+  `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.romg3.mongodb.net/test`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
