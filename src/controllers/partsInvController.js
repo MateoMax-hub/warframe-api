@@ -80,9 +80,6 @@ exports.getTrash = async (req, res) => {
 
     for (const part of partsToSell) {
       const partToPush = { ...part._doc };
-      console.log('====================================');
-      console.log(partToPush);
-      console.log('====================================');
       part.quantity = 1
       for (let i = 0; i < partToPush.quantity; i++) {
         defPartsToSell.push(part)
@@ -116,6 +113,28 @@ exports.deletePart = async (req, res) => {
     if (!partExistance) return res.badRequest('part do not exist in db');
     await PartsInv.deleteMany({ _id: req.params.id });
     res.success('OK');
+  } catch (error) {
+    res.error(error);
+  }
+};
+
+exports.updateNewPropertie = async (req, res) => {
+  try {
+    const parts = await PartsInv.find();
+    for (const part of parts) {
+      await PartsInv.findByIdAndUpdate(part._id, { isJunk: true });
+    }
+    res.success(parts);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.updatePart = async (req, res) => {
+  try {
+    const { id: _id } = req.params;
+    const partUpdated = await PartsInv.findByIdAndUpdate(_id, req.body, { new: true });
+    res.success('OK', partUpdated);
   } catch (error) {
     res.error(error);
   }

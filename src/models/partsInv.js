@@ -5,6 +5,9 @@ const PartsInv = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'parts'
   },
+  isJunk: {
+    type: Boolean,
+  },
   quantity: {
     type: Number,
     required: true,
